@@ -1,6 +1,6 @@
 package SyslogScan::SendmailLineTrans;
 
-$VERSION = 0.20;
+$VERSION = 0.23;
 sub Version { $VERSION };
 @ISA = qw ( SyslogScan::SendmailLine );
 
@@ -32,7 +32,11 @@ my $pUnbalancedParen = sub {
 # parseFromOrTo:  parse a message like:
 # to=bar@foo.org,baz@foo.org, delay=03:50:20, mailer=smtp,
 # relay=relay.uthbar.com [128.206.5.3],
-# stat=Sent (May, have (embedded, commas))
+# stat=Sent (May, have (embedded, commas)), or even, from=line
+
+# or
+
+# stat=Deferred: 451 collect: unexpected close, from=<foo@bar.com>: Host down
 
 sub parseContent
 {
@@ -48,11 +52,17 @@ sub parseContent
 	$attr = $2;	
     }
 
-    # to support Sendmail v5, change "received from foo" to
-    #                                "relay=foo"
-    $attr =~ s/, received from ([^,=]+)$/, relay=$1/;
+    # clear out trailing stat line:
+    my $stat;
+    if ($attr =~ s/, (stat=.+, [^\)]+)$//)
+    {
+	$stat = $1;
+	print STDERR "interpreting $1 as a single stat attribute\n"
+	    unless $::gbQuiet;
+    }
 
     my(@attrList) = split(', ',$attr);
+    push(@attrList,$stat) if defined $stat;
 
     # Suppose $attr was "foo=bar, uth=(bar, baz)"
 

@@ -9,7 +9,7 @@ require 'timelocal.pl';
 
 package SyslogScan::DeliveryIterator;
 
-$VERSION = 0.20;
+$VERSION = 0.23;
 sub Version { $VERSION };
 
 use SyslogScan::Delivery;
@@ -296,7 +296,8 @@ sub _recallInstanceAndIncrement
     return $$fromLine[2] + 1 - $incrementAmount; 
 }
 
-my $SIX_MONTHS = 6*30*24*60*60;
+my $ONE_MONTH = 30*24*60*60;
+my $ELEVEN_MONTH = 11 * $ONE_MONTH;
 
 my @LEGAL_KEY_LIST = qw( startDate endDate syslogList unknownSender
 			unknownSize defaultYear );
@@ -366,12 +367,12 @@ $pParseDate = sub {
 
 	    my $candidate = ::timelocal($sec, $min, $hour, $mday, $mon, $year);
 
-	    if (($candidate - $now) > $SIX_MONTHS)
+	    if (($candidate - $now) > $ONE_MONTH)
 	    {
 		# log entry was probably made last year
 		$year--;
 	    }
-	    elsif (($now - $candidate) > $SIX_MONTHS)
+	    elsif (($now - $candidate) > $ELEVEN_MONTH)
 	    {
 		# log entry was made 'next year', possible if
 		# computers on LAN have different times

@@ -10,6 +10,7 @@
 #-Usage:
 #-         $0 [-ugm] [-o cache_outfile]
 #-            [-U user_filter] [-T date_filter]
+#-            [-y year]
 #-            [-hvqD] [-i cache_in | syslog ...]
 #-
 #-Where:
@@ -21,6 +22,8 @@
 #- -U user_filter : only summarize mail involving certain users
 #- -T date_filter : only summarize mail delivered in a certain time-range
 #-
+#-
+#-        -y year : supply year syslogs were written
 #-             -q : quiet mode (suppress parsing errors and commentary)
 #-    -i cache_in : read in deliveries from cache-file "cache_in"
 #-      syslog ...: name of logs to scan (default is to use
@@ -31,7 +34,7 @@
 #-             -D : print debugging information
 #-
 #
-#   Version:  0.21
+#   Version:  0.23
 #   Author: Rolf Nelson
 #
 
@@ -52,6 +55,7 @@ sub inform;
 # set at getopts() time by T:U: flags
 my ($startDate, $endDate) = ($::gStartDate, $::gEndDate);
 my ($selfPattern, $otherPattern) = ($::gSelfPattern, $::gOtherPattern);
+my $deliveryYear = $::gYear;
 
 # set at getopts() time by gudo:i: flags
 my ($reportByGroup, $reportByUser, $reportByDelivery, $cacheOut, $cacheIn) =
@@ -93,7 +97,8 @@ if (defined $cacheOut)
 my $iter = new SyslogScan::DeliveryIterator ('unknownSender' => 'antiquity',
 					     'unknownSize' => 0,
 					     'startDate' => $startDate,
-					     'endDate' => $endDate);
+					     'endDate' => $endDate,
+					     'defaultYear' => $deliveryYear);
 my $syslog;
 foreach $syslog (@syslogList)
 {
@@ -215,7 +220,7 @@ sub inform
 sub procOpts
 {
     ($::opt_v, $::opt_h, $::opt_D) = ();  #avoid warning message
-    getopts('hvDgi:mo:quT:U:') || &showUsage("bad command switches");
+    getopts('hvDgi:mo:quy:T:U:') || &showUsage("bad command switches");
     &d();
     $::opt_h && &showUsage();
     $::opt_v && &showVersion();
@@ -242,6 +247,8 @@ sub procOpts
     ($::gReportByGroup, $::gReportByUser, $::gReportByDelivery,
      $::gCacheOut, $::gCacheIn) =
 	($::opt_g, $::opt_u, $::opt_m, $::opt_o, $::opt_i);
+
+    $::gYear = $::opt_y;
 
     &populateGlobalTimeFilter($::opt_T) if defined($::opt_T);
     &populateGlobalUserFilter($::opt_U) if defined($::opt_U);

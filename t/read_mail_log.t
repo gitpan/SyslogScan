@@ -6,6 +6,7 @@ print "1..4\n";
 print "Running automated test suite for $0:\n\n";
 
 require "dumpvar.pl";
+require "timelocal.pl";
 
 print "ok 1\n\n";
 
@@ -25,15 +26,18 @@ open(TEST,">$testTmp") || die "could not open $testTmp for write: $!";
 my $goodLog = "good_syslog";
 my $prevLog = "prev_syslog";
 
+my $start = timelocal(0,0,0,13,5,96);
+my $end = timelocal(0,0,0,14,5,96);
+
 my $cmd = "cd ..";
 my $switch;
 foreach $switch ("-u -U healthnet.org:NOT:time t/$goodLog",
 		 "-g -U healthnet.org -T 6.13.96 t/$prevLog t/$goodLog",
 		 "-m t/$prevLog t/$goodLog",
-		 "-m -T 834624000..834710400 -o t/$tmpDir/cache.sto t/$prevLog t/$goodLog",
+		 "-m -T $start..$end -o t/$tmpDir/cache.sto t/$prevLog t/$goodLog",
 		 "-i t/$tmpDir/cache.sto")
 {
-    $cmd .= " && $^X ./read_mail_log.pl -q $switch";
+    $cmd .= " && $^X ./read_mail_log.pl -q -y 1996 $switch";
 }
 
 open(PROG,"$cmd |");

@@ -1,5 +1,7 @@
 #!/usr/bin/perl5
 
+$::gbQuiet = 1;
+
 print "1..2\n";
 print "Running automated test suite for $0:\n\n";
 

@@ -204,13 +204,13 @@
       'attrListString' => undef
       'clonedFrom' => 'DAA29007'
       'content' => 'DAA29008: clone DAA29007, owner=hello-l-owner'
-      'day' => 31
+      'day' => 13
       'executable' => 'sendmail'
       'machine' => 'satellife'
       'messageID' => 'DAA29008'
-      'month' => 'May'
+      'month' => 'Jun'
       'tag' => 24788
-      'time' => '13:36:38'
+      'time' => '03:27:43'
    12  SyslogScan::SendmailLineTo=HASH
       'attrHash' => HASH
          'delay' => '00:00:03'
@@ -321,10 +321,10 @@
       'attrHash' => HASH
          'delay' => '00:00:04'
          'mailer' => 'fidogate'
-         'stat' => 'Deferred'
+         'stat' => 'Deferred: 451 collect: unexpected close, from=<netprod@radirect.isinet.com>: Host is unreachable'
          'to' => '<netnusi@ign.healthnet.org>'
       'attrListString' => undef
-      'content' => 'DAA29033: to=<netnusi@ign.healthnet.org>, delay=00:00:04, mailer=fidogate, stat=Deferred'
+      'content' => 'DAA29033: to=<netnusi@ign.healthnet.org>, delay=00:00:04, mailer=fidogate, stat=Deferred: 451 collect: unexpected close, from=<netprod@radirect.isinet.com>: Host is unreachable'
       'day' => 13
       'executable' => 'sendmail'
       'machine' => 'satellife'
