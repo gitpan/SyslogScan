@@ -2,6 +2,7 @@
 # successful sendmail deliveries.
 
 # TODO: add documentation
+# TODO: use undef value rather than END_OF_TIME
 
 package main;
 
@@ -23,7 +24,7 @@ use strict;
 my ($pValidateRule, $pParseDate);
 
 # time_t start and end values
-my $END_OF_TIME = 2 ** 32 - 1;
+my $END_OF_TIME = 4294967295;  #  2 ** 32 - 1;
 my $START_OF_TIME = 0;
 
 sub new
@@ -93,7 +94,7 @@ sub next
 	    my $fileName = shift(@{$$self{syslogList}});
 	    defined($fileName) or return undef;
 
-	    open(SYSLOG,$fileName) or die "could not open $fileName time";
+	    open(SYSLOG,$fileName) or die "could not open $fileName: $!";
 	    $$self{fileHandle} = \*SYSLOG;
 	}
 	my $next = $self -> _nextInFileHandle($$self{fileHandle});

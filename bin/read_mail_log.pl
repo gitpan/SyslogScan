@@ -34,7 +34,7 @@
 #-             -D : print debugging information
 #-
 #
-#   Version:  0.23
+#   Version:  0.31
 #   Author: Rolf Nelson
 #
 
@@ -258,7 +258,7 @@ sub populateGlobalUserFilter
 {
     my $userFilter = shift;  # $::opt_U
 
-    my ($selfSwitch, $notOtherSwitch, $otherSwitch);
+    my ($selfSwitch, $notOtherSwitch);
     
     if ($::opt_U =~ /(.+):NOT:(.+)/i)
     {

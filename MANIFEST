@@ -21,7 +21,8 @@ SyslogScan/Usage.pm
 SyslogScan/FilterUser.pm
 SyslogScan/Volume.pm
 SyslogScan/WhereIs.pm
-read_mail_log.pl
+read_mail_log.pl.moved.README
+bin/read_mail_log.pl
 t/ByGroup.t
 t/ByGroupTest.ref
 t/DeliveryIterator.t

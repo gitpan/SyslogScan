@@ -4,6 +4,7 @@ $VERSION = 0.20;
 sub Version { $VERSION };
 
 use strict;
+use Carp;
 
 my @LEGAL_KEY_LIST = qw( Date Size Id Sender ReceiverList Instance );
 my $VERSION = 1;
@@ -59,6 +60,8 @@ sub restore
 {
     my $type = shift;
     my $inFH = shift;
+
+    defined $inFH or croak "filehandle not defined";
 
     my $line = <$inFH>;
     if ($line ne "$HEADER start\n")

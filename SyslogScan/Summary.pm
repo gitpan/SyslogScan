@@ -8,6 +8,7 @@ use SyslogScan::Volume;
 use SyslogScan::Delivery;
 use SyslogScan::DeliveryIterator;
 use SyslogScan::FilterUser;
+use Carp;
 use strict;
 
 my $HEADER = "Summary v1";
@@ -114,6 +115,8 @@ sub restore
 {
     my $type = shift;
     my $inFH = shift;
+
+    defined $inFH or croak "filehandle not defined";
 
     my $line = <$inFH>;
     if ($line ne "$HEADER start\n")

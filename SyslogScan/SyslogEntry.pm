@@ -2,7 +2,7 @@
 
 package SyslogScan;
 
-$VERSION = 0.30;
+$VERSION = 0.31;
 sub Version { $VERSION };
 
 
@@ -10,10 +10,11 @@ package SyslogScan::SyslogEntry;
 
 use SyslogScan::ParseDate;
 
-$VERSION = 0.30;
+$VERSION = 0.31;
 sub Version { $VERSION };
 
 use SyslogScan::UnsupportedEntry;
+use Carp;
 use strict;
 
 # to handle 'last message repeated n times' lines
@@ -49,9 +50,10 @@ sub new
 {
     my $staticType = shift;
     my $SYSLOG = shift;
-    my ($self);
-    my ($className);
-    my ($line);
+
+    defined $SYSLOG or croak("syslog not defined");
+
+    my ($self, $className, $line);
 
     # check if we are repeating ourselves
     if ($gRepeatCount)
@@ -79,14 +81,14 @@ sub new
     # check for 'last line repeated n times' message
     if ($rest =~ /^last message repeated (\d+) time/)
     {
-	! $gRepeatCount ||
+	$gRepeatCount and
 	    die "repetition of 'last message repeated' line!?";
 	$gRepeatCount = $1;
 	$gLineToRepeat = $gLastLineByHost{$machine};
 	($gFinalMonth, $gFinalDay, $gFinalTime) = ($month, $day, $time);
 	$gRepeatCount ||
 	    die "repetition of length 0!?";
-	return SyslogScan::SyslogEntry -> new;
+	return SyslogScan::SyslogEntry -> new($SYSLOG);
     }
 
     if ($gRepeatCount)
@@ -134,9 +136,10 @@ sub new
     }
 
     # check for possible i/o error
-    if ($line =~ /I\/O error/)
+    if ($line =~ m^I/O error^ and $` !~ /\bstat=/)
     {
-	print STDERR "may be syslog I/O error in line:\n  $line\n";
+	print STDERR "may be syslog I/O error in line:\n  $line\n"
+	    unless $::gbQuiet;
 	$$self{suspectIOError} = 1;
     }
 
