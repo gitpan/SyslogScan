@@ -73,7 +73,7 @@ sub dump
     my $retString;
 
     my $group;
-    foreach $group (keys %$self)
+    foreach $group (sort keys %$self)
     {
 	$retString .= "$group TOTAL:\n";
 	$retString .= $$self{$group} -> dump();

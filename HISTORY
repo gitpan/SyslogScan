@@ -1,3 +1,5 @@
+1/30/97 0.31: fix to work with HP and with perl 5.004 beta-2
+
 12/10/96 0.30: Merge in Rout's unix_time, jump table, access methods
 
 12/02/96 0.23:

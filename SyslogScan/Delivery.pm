@@ -88,7 +88,7 @@ sub restore
     $line eq "ReceiverList:\n" or die "expected ReceiverList but got $line";
 
     my $receiver;
-    while ($line = <$inFH>)
+    while (defined($line = <$inFH>))
     {
 	return $self if $line eq "$HEADER end\n";
 	die "missed $HEADER end line" if $line eq "$HEADER start\n";

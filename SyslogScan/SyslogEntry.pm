@@ -64,7 +64,7 @@ sub new
     {
 	# read the next syslog line
 	no strict 'refs';
-	($line = <$SYSLOG>) || return undef;  # at EOF
+	defined($line = <$SYSLOG>) || return undef;  # at EOF
 	use strict 'refs';
 	if (chop($line) ne "\n")
 	{

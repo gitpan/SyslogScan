@@ -39,7 +39,7 @@ sub dump
     $retString .= $$self{groupUsage} -> dump();
 
     my $address;
-    foreach $address (keys %$byAddress)
+    foreach $address (sort keys %$byAddress)
     {
 	$retString .= "$address:\n";
 	$retString .= $$byAddress{$address} -> dump();

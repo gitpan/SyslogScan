@@ -131,7 +131,7 @@ sub restore
     bless ($self, $type);
 
     my $headerLine;
-    while ($headerLine = <$inFH>)
+    while (defined($headerLine = <$inFH>))
     {
 	if (! ($headerLine =~ /^address\=(.*)/))
 	{
@@ -153,7 +153,7 @@ sub dump
     my $retString;
 
     my $address;
-    foreach $address (keys %$self)
+    foreach $address (sort keys %$self)
     {
 	$retString .= "$address:\n";
 	$retString .= $$self{$address} -> dump();

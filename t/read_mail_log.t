@@ -37,8 +37,8 @@ foreach $switch ("-u -U healthnet.org:NOT:time t/$goodLog",
 		 "-m -T $start..$end -o t/$tmpDir/cache.sto t/$prevLog t/$goodLog",
 		 "-i t/$tmpDir/cache.sto")
 {
-    # $cmd .= " && $^X -d bin/read_mail_log.pl -q -y 1996 $switch";
-    $cmd .= " && $^X bin/read_mail_log.pl -q -y 1996 $switch";
+    # $cmd .= " && $^X -d read_mail_log.pl -q -y 1996 $switch";
+    $cmd .= " && $^X read_mail_log.pl -q -y 1996 $switch";
 }
 
 open(PROG,"$cmd |");

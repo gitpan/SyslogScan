@@ -375,38 +375,78 @@ $gByGroup = SyslogScan::ByGroup=HASH
          2  SyslogScan::Volume=ARRAY
             0  0
             1  0
+cvmvax.gov TOTAL:
+		1,519		2,1038		0,0
+unique3%sswmbx%fdaoc@mr.cvmvax.gov:
+		1,519		2,1038		0,0
+
+foo.org TOTAL:
+		0,0		0,0		1,214
+unitwo@ok.foo.org:
+		0,0		0,0		1,214
+
+harvard.edu TOTAL:
+		1,1477		1,1477		0,0
+coumfuller@warren.med.harvard.edu:
+		1,1477		1,1477		0,0
+
+healthnet.org TOTAL:
+		2,1745		4,3490		7,25581
+count11@ok.healthnet.org:
+		0,0		0,0		1,8471
+count1@prev.healthnet.org:
+		0,0		0,0		1,1477
+helkaire@ok.healthnet.org:
+		0,0		0,0		1,7000
+joil_gupta@ok.healthnet.org:
+		0,0		0,0		1,5357
+unione@ok.healthnet.org:
+		0,0		0,0		1,214
+unique1@usa.healthnet.org:
+		1,214		2,428		0,0
+unique2@usa.healthnet.org:
+		1,1531		2,3062		0,0
+unitwo@ok.healthnet.org:
+		0,0		0,0		1,1531
+unizney@ok.healthnet.org:
+		0,0		0,0		1,1531
+
+hello.org TOTAL:
+		0,0		0,0		1,1531
+unilo@ok.hello.org:
+		0,0		0,0		1,1531
+
+iastate.edu TOTAL:
+		1,8471		1,8471		0,0
+cougithendu@iastate.edu:
+		1,8471		1,8471		0,0
+
+localhost TOTAL:
+		1,0		1,0		0,0
+antiquity:
+		1,0		1,0		0,0
+
+ok.com TOTAL:
+		0,0		0,0		1,519
+"<uni>|ifs=" " && exec /usr/local/bin/procmail -f- || exit 75 #phil"@ok.com:
+		0,0		0,0		1,519
+
+ok.edu TOTAL:
+		0,0		0,0		1,519
+uniman@ok.edu:
+		0,0		0,0		1,519
+
+pitt.edu TOTAL:
+		1,5357		1,5357		0,0
+joinkids@foo.phyast.pitt.edu:
+		1,5357		1,5357		0,0
+
 temple.edu TOTAL:
 		2,8531		3,10062		0,0
 help-net@bar.temple.edu:
 		1,7000		1,7000		0,0
 unique3@vm.temple.edu:
 		1,1531		2,3062		0,0
-
-healthnet.org TOTAL:
-		2,1745		4,3490		7,25581
-helkaire@ok.healthnet.org:
-		0,0		0,0		1,7000
-unitwo@ok.healthnet.org:
-		0,0		0,0		1,1531
-unique1@usa.healthnet.org:
-		1,214		2,428		0,0
-unique2@usa.healthnet.org:
-		1,1531		2,3062		0,0
-count11@ok.healthnet.org:
-		0,0		0,0		1,8471
-count1@prev.healthnet.org:
-		0,0		0,0		1,1477
-unione@ok.healthnet.org:
-		0,0		0,0		1,214
-joil_gupta@ok.healthnet.org:
-		0,0		0,0		1,5357
-unizney@ok.healthnet.org:
-		0,0		0,0		1,1531
-
-harvard.edu TOTAL:
-		1,1477		1,1477		0,0
-coumfuller@warren.med.harvard.edu:
-		1,1477		1,1477		0,0
 
 utmem.edu TOTAL:
 		0,0		0,0		1,0
@@ -417,44 +457,4 @@ yorkhospital.edu TOTAL:
 		0,0		0,0		1,1531
 unione@ok.wpgate.galaxy.dnet.yorkhospital.edu:
 		0,0		0,0		1,1531
-
-ok.edu TOTAL:
-		0,0		0,0		1,519
-uniman@ok.edu:
-		0,0		0,0		1,519
-
-iastate.edu TOTAL:
-		1,8471		1,8471		0,0
-cougithendu@iastate.edu:
-		1,8471		1,8471		0,0
-
-ok.com TOTAL:
-		0,0		0,0		1,519
-"<uni>|ifs=" " && exec /usr/local/bin/procmail -f- || exit 75 #phil"@ok.com:
-		0,0		0,0		1,519
-
-localhost TOTAL:
-		1,0		1,0		0,0
-antiquity:
-		1,0		1,0		0,0
-
-hello.org TOTAL:
-		0,0		0,0		1,1531
-unilo@ok.hello.org:
-		0,0		0,0		1,1531
-
-foo.org TOTAL:
-		0,0		0,0		1,214
-unitwo@ok.foo.org:
-		0,0		0,0		1,214
-
-pitt.edu TOTAL:
-		1,5357		1,5357		0,0
-joinkids@foo.phyast.pitt.edu:
-		1,5357		1,5357		0,0
-
-cvmvax.gov TOTAL:
-		1,519		2,1038		0,0
-unique3%sswmbx%fdaoc@mr.cvmvax.gov:
-		1,519		2,1038		0,0
 
