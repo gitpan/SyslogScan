@@ -1,14 +1,16 @@
-         0.23:
+12/10/96 0.30: Merge in Rout's unix_time, jump table, access methods
+
+12/02/96 0.23:
 
 Allow commas in "stat=" attribute
 Year-guess is asymmetrical (11 months back, 1 month forward)
 New -y year option to read_mail_log.pl
 
-11/18/96 0.22 fix "make test" to work in all time-zones
+11/18/96 0.22: fix "make test" to work in all time-zones
 
-9/26/96 0.21 compatible with V5.65 sendmail log format
+9/26/96 0.21: compatible with V5.65 sendmail log format
 
-9/19/96 0.20 first beta version:
+9/19/96 0.20: first beta version:
 
 read_mail_log has more command-line options:
  -U filters out users by domain
@@ -22,4 +24,4 @@ New Get* methods in SyslogScan::Volume
 SyslogScan appends "@localhost" to local (unqualified) addresses
 
 
-8/30/96 0.10 first alpha version
+8/30/96: 0.10 first alpha version

@@ -6,6 +6,9 @@ print "1..2\n";
 print "Running automated test suite for $0:\n\n";
 
 use SyslogScan::SendmailUtil;
+use SyslogScan::ParseDate;
+&SyslogScan::ParseDate::setDefaultYear(1996);
+
 require "dumpvar.pl";
 
 print "ok 1\n\n";
@@ -43,7 +46,7 @@ close(TEST);
 select(STDOUT);
 
 $retval =
-    system("perl -pi.bak -e 's/(HASH|ARRAY).+/\$1/g' $testTmp") >> 8;
+    system("perl -pi.bak -e 's/(HASH|ARRAY|unix_time).+/\$1/g' $testTmp") >> 8;
 
 if (! $retval)
 {

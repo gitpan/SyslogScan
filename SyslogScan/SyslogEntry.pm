@@ -1,8 +1,16 @@
 # SyslogEntry: generic line in a syslog program.
 
+package SyslogScan;
+
+$VERSION = 0.30;
+sub Version { $VERSION };
+
+
 package SyslogScan::SyslogEntry;
 
-$VERSION = 0.20;
+use SyslogScan::ParseDate;
+
+$VERSION = 0.30;
 sub Version { $VERSION };
 
 use SyslogScan::UnsupportedEntry;
@@ -16,6 +24,15 @@ my $gFinalDay;
 my $gFinalTime;
 my $gRepeatCount = 0;
 
+my %gTable = 
+    (
+# examples:
+#     'cli'         =>   'SyslogScan::AnnexEntry',
+#     'slip'        =>   'SyslogScan::AnnexEntry',
+#     'telnet_cmd'  =>   'SyslogScan::AnnexEntry',
+#     'ppp'         =>   'SyslogScan::AnnexEntry',
+#     'rlogin_rdr'  =>   'SyslogScan::AnnexEntry',
+     );
 
 my $pIsSubclass = sub {
     my($superclass,$possibleSubclass) = @_;
@@ -99,9 +116,22 @@ sub new
     }
 
     # fill in my 'self' array
-    $self = {"content" => $content, "month" => $month,
-	 "day" => $day, "time" => $time, "machine" => $machine,
-	 "executable" => $executable, "tag" => $tag};
+    $self = {
+	"content" => $content,
+	"month" => $month,
+	"day" => $day,
+	"time" => $time,
+	"machine" => $machine,
+	"executable" => $executable,
+	"tag" => $tag,
+	"raw" => $line
+	};
+
+    if (defined $time)
+    {
+	my $date = "$month $day $time";
+	$self->{"unix_time"} = SyslogScan::ParseDate::parseDate($date);
+    }
 
     # check for possible i/o error
     if ($line =~ /I\/O error/)
@@ -112,15 +142,22 @@ sub new
 
     # Make first letter of program capital, and change . to _,
     # so the module to handle 'in.identd' is named "In_identdLine.pm"
+
+    my $oldChar = substr($executable,0,1);
     substr($executable,0,1) =~ tr/a-z/A-Z/;
     my $handlerClass = "SyslogScan::" . $executable . "Line";
     $handlerClass =~ s/[\. ]/_/g;
+    substr($executable,0,1) = $oldChar;
 
     # If the module to handle this program has been "use"'d,
     # then subclass our object and call its parseContent() method.
     if (&$pIsSubclass("SyslogScan::SyslogEntry",$handlerClass))
     {
 	bless($self,$handlerClass);
+    }
+    elsif (defined ($gTable{$executable}))
+    {
+	bless($self,$gTable{$executable});
     }
     else
     {
@@ -163,6 +200,18 @@ sub parseContent
     die "class ", ref($self), " did not override parseContent!\n";
 }
 
+# access methods
+
+sub content    { return ( (my $self = shift)->{"content"});}
+sub raw        { return ( (my $self = shift)->{"raw"});}
+sub month      { return ( (my $self = shift)->{"month"});}
+sub day        { return ( (my $self = shift)->{"day"});}
+sub time       { return ( (my $self = shift)->{"time"});}
+sub machine    { return ( (my $self = shift)->{"machine"});}
+sub executable { return ( (my $self = shift)->{"executable"});}
+sub tag        { return ( (my $self = shift)->{"tag"});}
+sub unix_time  { return ( (my $self = shift)->{"unix_time"});}
+
 1;
 
 __END__
@@ -195,16 +244,18 @@ For example, if a syslog line looks like:
 
 Jun 13 02:32:27 satellife in.identd[25994]: connect from mail.missouri.edu
 
-then the line returned by 'new SyslogEntry' will return an
+then the line returned by 'new SyslogEntry' will return a
 SyslogEntry-derived object with at least this set of parameters:
 
-month => Jun,
-day => 13,
-time => 02:32:27,
-machine => satellife,
-executable => in.identd,
-tag => 25994,
-content => connect from mail.missouri.edu
+ month => Jun,
+ day => 13,
+ time => 02:32:27,
+ machine => satellife,
+ executable => in.identd,
+ tag => 25994,
+ content => connect from mail.missouri.edu,
+ unix_time => 834633147,
+ raw => Jun 13 02:32:27 satellife in.identd[25994]: connect from mail.missouri.edu
 
 Since the executable is 'in.identd', SyslogEntry.pm will look for a
 class called "SyslogScan::In_identdLine" derived from SyslogEntry, and
@@ -230,6 +281,8 @@ had it to do over again.
 
 The author (Rolf Harold Nelson) can currently be e-mailed as
 rolf@usa.healthnet.org.
+
+Thanks to Allen S. Rout for his code contributions.
 
 This code is Copyright (C) SatelLife, Inc. 1996.  All rights reserved.
 This code is free software; you can redistribute it and/or modify it

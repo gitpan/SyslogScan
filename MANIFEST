@@ -7,6 +7,7 @@ SyslogScan/Delivery.pm
 SyslogScan/DeliveryIterator.pm
 SyslogScan/Group.pm
 SyslogScan/In_identdLine.pm
+SyslogScan/ParseDate.pm
 SyslogScan/SendmailLine.pm
 SyslogScan/SendmailLineClone.pm
 SyslogScan/SendmailLineFrom.pm

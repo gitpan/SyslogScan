@@ -8,6 +8,9 @@ print "Running automated test suite for $0:\n\n";
 use SyslogScan::ByGroup;
 use SyslogScan::Summary;
 use SyslogScan::DeliveryIterator;
+use SyslogScan::ParseDate;
+&SyslogScan::ParseDate::setDefaultYear(1996);
+
 
 $::gbQuiet = 1;
 

@@ -7,6 +7,9 @@ use SyslogScan::SendmailLine;
 use SyslogScan::SyslogEntry;
 require "dumpvar.pl";
 
+use SyslogScan::ParseDate;
+&SyslogScan::ParseDate::setDefaultYear(1996);
+
 $::gbQuiet = 1;
 
 print "ok 1\n\n";
@@ -89,7 +92,7 @@ close(TEST);
 select(STDOUT);
 
 $retval =
-    system("perl -pi.bak -e 's/(HASH|ARRAY).+/\$1/g' $testTmp") >> 8;
+    system("perl -pi.bak -e 's/(HASH|ARRAY|unix_time).+/\$1/g' $testTmp") >> 8;
 
 if (! $retval)
 {

@@ -7,6 +7,9 @@ print "Running automated test suite for $0:\n\n";
 
 use SyslogScan::Usage;
 use SyslogScan::Summary;
+use SyslogScan::ParseDate;
+&SyslogScan::ParseDate::setDefaultYear(1996);
+
 
 require "dumpvar.pl";
 

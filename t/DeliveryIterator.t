@@ -6,6 +6,9 @@ print "1..6\n";
 print "Running automated test suite for $0:\n\n";
 
 use SyslogScan::DeliveryIterator;
+use SyslogScan::ParseDate;
+&SyslogScan::ParseDate::setDefaultYear(1996);
+
 require "dumpvar.pl";
 @$::gpDeliveryList = ();
 @::gDeliveryLol = ();
